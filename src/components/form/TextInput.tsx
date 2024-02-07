@@ -8,16 +8,18 @@ import {
 } from "@chakra-ui/react";
 import { useField } from "formik";
 
-// ICONS
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-// ICONS
-
-interface IPasswordInput {
+interface ITextInput {
   name: string;
+  type?: string;
   placeholder: string;
+  icon?: any;
 }
-const PasswordInput: FC<IPasswordInput> = ({ name, placeholder }) => {
+const TextInput: FC<ITextInput> = ({
+  name,
+  type = "text",
+  placeholder,
+  icon,
+}) => {
   const [show, setShow] = useState(false);
   const toggleShow = () => {
     setShow(!show);
@@ -28,7 +30,7 @@ const PasswordInput: FC<IPasswordInput> = ({ name, placeholder }) => {
     <FormControl isInvalid={Boolean(meta.touched && meta.error)}>
       <InputGroup size="lg">
         <Input
-          type={show ? "text" : "password"}
+          type={type}
           name={name}
           onChange={field.onChange}
           onBlur={field.onBlur}
@@ -36,17 +38,19 @@ const PasswordInput: FC<IPasswordInput> = ({ name, placeholder }) => {
           errorBorderColor="red.500"
           placeholder={placeholder}
         />
-        <InputLeftElement
-          cursor="pointer"
-          onClick={toggleShow}
-          color={"gray.300"}
-        >
-          {show ? <VisibilityIcon /> : <VisibilityOffIcon />}
-        </InputLeftElement>
+        {icon && (
+          <InputLeftElement
+            cursor="pointer"
+            onClick={toggleShow}
+            color={"gray.300"}
+          >
+            {icon()}
+          </InputLeftElement>
+        )}
       </InputGroup>
       <FormErrorMessage>{meta.error}</FormErrorMessage>
     </FormControl>
   );
 };
 
-export default PasswordInput;
+export default TextInput;

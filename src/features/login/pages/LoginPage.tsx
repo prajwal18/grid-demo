@@ -1,8 +1,12 @@
+import { Center } from "@chakra-ui/react";
+import FormContainer from "../components/FormContainer";
 
 const LoginPage = () => {
   return (
-    <div></div>
-  )
-}
+    <Center minH="100vh" w="100vw" className="blue-gradient">
+      <FormContainer />
+    </Center>
+  );
+};
 
-export default LoginPage
+export default LoginPage;
