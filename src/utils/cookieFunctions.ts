@@ -4,7 +4,7 @@ const cookie = new Cookies();
 
 // Admin Session and Cookie
 export const setSessionCookie = (token: string) => {
-  cookie.remove("token");
+  cookie.set("token", token);
 };
 export const clearSessionCookie = () => {
   cookie.remove("token");

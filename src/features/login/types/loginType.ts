@@ -1,5 +1,5 @@
 export type LoginDataType = {
-  email: string;
+  phone: string;
   password: string;
 };
 

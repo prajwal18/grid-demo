@@ -1,24 +1,38 @@
-import { Box, Text } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
 import { Formik } from "formik";
-import { loginSchema } from "../schema/loginSchema";
+import { Box, Text } from "@chakra-ui/react";
+import { toast } from "react-toastify";
+import { loginSchema } from "../schema/yup/loginSchema";
 import { LoginDataType } from "../types/loginType";
 import LoginForm from "./LoginForm";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginUserMutation } from "../../../generated/graphql";
+import { setSession } from "../../../store/slice/sessionSlice";
 
 const FormOnlySection = () => {
+  const [loginUserFn, { loading }] = useLoginUserMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleSubmit = (values: LoginDataType) => {
-    console.log(values);
+    loginUserFn({ variables: values })
+      .then((response) => response.data)
+      .then((data) => data?.signInUser)
+      .then(({ token }: any) => {
+        dispatch(setSession({ token }));
+        navigate("/");
+      })
+      .catch((error) => toast.error(error.message));
   };
 
   return (
     <Formik
-      initialValues={{ email: "", password: "" }}
+      initialValues={{ phone: "", password: "" }}
       validationSchema={loginSchema}
       enableReinitialize={true}
       validateOnBlur={true}
       onSubmit={handleSubmit}
     >
-      <LoginForm />
+      <LoginForm loading={loading} />
     </Formik>
   );
 };
