@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  SetIsLoadingAT,
   SetSessionAT,
   UserSessionType,
 } from "../../features/login/types/sessionType";
@@ -23,6 +24,10 @@ const sessionSlice = createSlice({
       state.isLoading = false;
       return state;
     },
+    setIsLoading: (state: UserSessionType, action: SetIsLoadingAT) => {
+      state.isLoading = action.payload;
+      return state;
+    },
     clearSession: (state: UserSessionType) => {
       clearSessionCookie();
       state.isLoggedIn = false;
@@ -44,6 +49,6 @@ export const selectIsLoggedIn = (state: any) => {
 };
 // Selectors
 
-export const { setSession, clearSession } = sessionSlice.actions;
+export const { setSession, clearSession, setIsLoading } = sessionSlice.actions;
 
 export default sessionSlice.reducer;

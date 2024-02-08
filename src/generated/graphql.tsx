@@ -9650,6 +9650,14 @@ export type Worker = {
   status?: Maybe<Scalars['String']['output']>;
 };
 
+export type FetchFilteredOrderWellQueryVariables = Exact<{
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FetchFilteredOrderWellQuery = { __typename?: 'Query', filteredOrderWell: { __typename?: 'OrderWellCollection', collection: Array<{ __typename?: 'OrderWell', id: string, status?: string | null, type?: string | null, plannedAt?: number | null, customerName?: string | null, customerErpId?: string | null, shipToName?: string | null, address?: string | null, plannedGal?: number | null, createdAtTimestamp?: number | null, driverName?: string | null, deliveredGal?: number | null, supplierNames?: Array<string> | null, hubName?: string | null }>, metadata: { __typename?: 'MetaQuery', hasMore: boolean, totalCount?: number | null, total_entries?: number | null } } };
+
 export type LoginUserMutationVariables = Exact<{
   phone: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -9659,6 +9667,71 @@ export type LoginUserMutationVariables = Exact<{
 export type LoginUserMutation = { __typename?: 'Mutation', signInUser?: { __typename?: 'SignInPayload', token?: string | null } | null };
 
 
+export const FetchFilteredOrderWellDocument = gql`
+    query FetchFilteredOrderWell($skip: Int!, $take: Int!) {
+  filteredOrderWell(
+    limit: $take
+    offset: $skip
+    filter: {fromTimestamp: 1707070500, toTimestamp: 1707156840}
+  ) {
+    collection {
+      id
+      status
+      type
+      plannedAt
+      customerName
+      customerErpId
+      shipToName
+      address
+      plannedGal
+      createdAtTimestamp
+      driverName
+      deliveredGal
+      supplierNames
+      hubName
+    }
+    metadata {
+      hasMore
+      totalCount
+      total_entries
+    }
+  }
+}
+    `;
+
+/**
+ * __useFetchFilteredOrderWellQuery__
+ *
+ * To run a query within a React component, call `useFetchFilteredOrderWellQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFetchFilteredOrderWellQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFetchFilteredOrderWellQuery({
+ *   variables: {
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFetchFilteredOrderWellQuery(baseOptions: Apollo.QueryHookOptions<FetchFilteredOrderWellQuery, FetchFilteredOrderWellQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FetchFilteredOrderWellQuery, FetchFilteredOrderWellQueryVariables>(FetchFilteredOrderWellDocument, options);
+      }
+export function useFetchFilteredOrderWellLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FetchFilteredOrderWellQuery, FetchFilteredOrderWellQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FetchFilteredOrderWellQuery, FetchFilteredOrderWellQueryVariables>(FetchFilteredOrderWellDocument, options);
+        }
+export function useFetchFilteredOrderWellSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FetchFilteredOrderWellQuery, FetchFilteredOrderWellQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FetchFilteredOrderWellQuery, FetchFilteredOrderWellQueryVariables>(FetchFilteredOrderWellDocument, options);
+        }
+export type FetchFilteredOrderWellQueryHookResult = ReturnType<typeof useFetchFilteredOrderWellQuery>;
+export type FetchFilteredOrderWellLazyQueryHookResult = ReturnType<typeof useFetchFilteredOrderWellLazyQuery>;
+export type FetchFilteredOrderWellSuspenseQueryHookResult = ReturnType<typeof useFetchFilteredOrderWellSuspenseQuery>;
+export type FetchFilteredOrderWellQueryResult = Apollo.QueryResult<FetchFilteredOrderWellQuery, FetchFilteredOrderWellQueryVariables>;
 export const LoginUserDocument = gql`
     mutation LoginUser($phone: String!, $password: String!) {
   signInUser(input: {credentials: {password: $password, phone: $phone}}) {

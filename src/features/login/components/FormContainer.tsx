@@ -7,13 +7,15 @@ import { LoginDataType } from "../types/loginType";
 import LoginForm from "./LoginForm";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "../../../generated/graphql";
-import { setSession } from "../../../store/slice/sessionSlice";
+import { setIsLoading, setSession } from "../../../store/slice/sessionSlice";
 
 const FormOnlySection = () => {
   const [loginUserFn, { loading }] = useLoginUserMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSubmit = (values: LoginDataType) => {
+    // isLoading from session slice in store is used to re-initialize Apollo client instance.
+    dispatch(setIsLoading(true));
     loginUserFn({ variables: values })
       .then((response) => response.data)
       .then((data) => data?.signInUser)
@@ -21,7 +23,10 @@ const FormOnlySection = () => {
         dispatch(setSession({ token }));
         navigate("/");
       })
-      .catch((error) => toast.error(error.message));
+      .catch((error) => {
+        toast.error(error.message);
+        dispatch(setIsLoading(false));
+      });
   };
 
   return (

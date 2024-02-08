@@ -7,10 +7,8 @@ interface IMainLayout {
 
 const MainLayout: FC<IMainLayout> = ({ children }) => {
   return (
-    <Container maxW="full">
-      <Container maxW="container.xl" minH="100vh">
-        {children}
-      </Container>
+    <Container maxW="full" minH="100vh">
+      {children}
     </Container>
   );
 };

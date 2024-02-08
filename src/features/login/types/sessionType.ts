@@ -9,3 +9,8 @@ export type SetSessionAT = {
   type: any;
   payload: LoginResponseType;
 };
+
+export type SetIsLoadingAT = {
+  type: any;
+  payload: boolean;
+};
