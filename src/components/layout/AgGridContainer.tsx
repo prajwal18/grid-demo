@@ -12,25 +12,31 @@ const OnLoadingComponent = () => {
     </Flex>
   );
 };
+const gridOptions = {
+  pagination: true,
+  paginationPageSize: 10,
+  paginationPageSizeSelector: [10, 20, 30, 40, 50],
+  loadingOverlayComponent: OnLoadingComponent,
+  overlayNoRowsTemplate:
+    '<span class="ag-overlay-no-rows-center">No data available</span>',
+};
 
 interface IAgGridContainer {
   colDefs: Array<any>;
   onGridReady: (params: any) => void;
 }
-const AgGridContainer: FC<IAgGridContainer> = ({ colDefs, onGridReady }) => {
+const AgGridContainer: FC<IAgGridContainer> = ({
+  colDefs,
+  onGridReady,
+}) => {
   return (
     <div className="ag-theme-quartz-dark" style={{ height: "800px" }}>
       <AgGridReact
         columnDefs={colDefs}
+        defaultColDef={{ filter: true }}
         pagination={true}
-        rowModelType={"infinite"}
-        paginationPageSize={10}
-        paginationPageSizeSelector={[10, 20, 35, 50]}
         onGridReady={onGridReady}
-        loadingOverlayComponent={OnLoadingComponent}
-        overlayNoRowsTemplate={
-          '<div class="ag-overlay-loading-center">No data available</div>'
-        }
+        gridOptions={gridOptions}
       />
     </div>
   );

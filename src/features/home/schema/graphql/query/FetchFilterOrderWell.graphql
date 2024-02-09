@@ -1,7 +1,5 @@
-query FetchFilteredOrderWell($skip: Int!, $take: Int!) {
+query FetchFilteredOrderWell{
   filteredOrderWell(
-    limit: $take
-    offset: $skip
     filter: { fromTimestamp: 1707070500, toTimestamp: 1707156840 }
   ) {
     collection {
