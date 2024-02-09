@@ -1,26 +1,17 @@
-/*
-  "id": "934242",
-  "status": "scheduled",
-  "type": "delivery",
-  "plannedAt": 1707087600,
-  "customerName": "hiran oil coop",
-  "customerErpId": "Hi-1",
-  "shipToName": "manjil",
-  "address": null,
-  "plannedGal": 0.0,
-  "createdAtTimestamp": 1704531624,
-  "driverName": "Ramesh Shrestha",
-  "deliveredGal": 0.0,
-  "supplierNames": null,
-  "hubName": "FP Station"
-*/
-
 export const colDefs = [
+  {
+    headerName: "S.N",
+    field: "serialNumber",
+    valueGetter: function (params: any) {
+      return params.node.rowIndex + 1;
+    },
+  },
   {
     field: "id",
   },
   {
     field: "status",
+    // rowGroup: true
   },
   {
     field: "type",

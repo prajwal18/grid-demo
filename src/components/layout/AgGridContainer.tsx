@@ -14,7 +14,8 @@ const OnLoadingComponent = () => {
 };
 const gridOptions = {
   pagination: true,
-  paginationPageSize: 10,
+  defaultColDef: { filter: true },
+  paginationPageSize: 20,
   paginationPageSizeSelector: [10, 20, 30, 40, 50],
   loadingOverlayComponent: OnLoadingComponent,
   overlayNoRowsTemplate:
@@ -25,16 +26,11 @@ interface IAgGridContainer {
   colDefs: Array<any>;
   onGridReady: (params: any) => void;
 }
-const AgGridContainer: FC<IAgGridContainer> = ({
-  colDefs,
-  onGridReady,
-}) => {
+const AgGridContainer: FC<IAgGridContainer> = ({ colDefs, onGridReady }) => {
   return (
     <div className="ag-theme-quartz-dark" style={{ height: "800px" }}>
       <AgGridReact
         columnDefs={colDefs}
-        defaultColDef={{ filter: true }}
-        pagination={true}
         onGridReady={onGridReady}
         gridOptions={gridOptions}
       />
